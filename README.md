@@ -1,5 +1,5 @@
 ````markdown
-# UCLA Law Library Reservation Autofiller
+## UCLA Law Library Reservation Autofiller
 
 This is a Python script that automatically fills out the UCLA Law Library reservation form using Selenium.
 
