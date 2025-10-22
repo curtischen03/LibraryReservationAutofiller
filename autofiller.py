@@ -16,8 +16,11 @@ def autofill_library_reservation(first_name,last_name,bruin_email,bruin_id):
     driver.get('https://libbooking.law.ucla.edu/reserve/study')
     driver.implicitly_wait(0.5)
 
-    #select earliest open 8AM time slot
-    element = driver.find_element(By.XPATH, "//div[@class='s-lc-eq-period s-lc-eq-period-available'][contains(@data-period-display,'8:00am')]")
+    #select earliest open 8AM time slot, otherwise earliest open 12:30PM time slot
+    elements = driver.find_elements(By.XPATH, "//div[@class='s-lc-eq-period s-lc-eq-period-available'][contains(@data-period-display,'8:00am')]")
+    if len(elements) == 0:
+        elements = driver.find_elements(By.XPATH, "//div[@class='s-lc-eq-period s-lc-eq-period-available'][contains(@data-period-display,'12:30pm')]")
+    element = elements[0]
     element.click()
     driver.implicitly_wait(0.5)
 
@@ -47,6 +50,9 @@ def autofill_library_reservation(first_name,last_name,bruin_email,bruin_id):
     driver.quit()
 
 if __name__ == "__main__":
+    if len(sys.argv) == 1:
+        autofill_library_reservation('Curtis','Chen','curtischen0406@g.ucla.edu','705699396')
+        exit()
     if len(sys.argv) != 5:
         print("Usage: python3 scrape.py <first_name> <last_name> <bruin_email> <bruin_id>")
         sys.exit(1)
