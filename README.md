@@ -48,6 +48,10 @@ Run:
 ```bash
 python3 autofiller.py
 ```
+### Option 3:
+
+Currently, Github Actions is enabled, so if you put your first name, last name, bruin email, and bruin id into Github secrets, you are able to schedule every weekday at 12:00AM.
+
 
 ---
 

@@ -72,7 +72,8 @@ if __name__ == "__main__":
         if not first_name or not last_name or not bruin_email or not bruin_id:  
             print('One of fields is not filled out in env file')
             exit() 
-        print(first_name[0] + last_name[0] + bruin_email[0] + bruin_id[0])     
+        #testing purposes to ensure github secrets are working
+        #print(first_name[0] + last_name[0] + bruin_email[0] + bruin_id[0])     
         autofill_library_reservation(first_name, last_name, bruin_email, bruin_id)
         exit()
     if len(sys.argv) != 5:
