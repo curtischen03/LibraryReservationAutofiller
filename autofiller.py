@@ -1,15 +1,9 @@
 import sys
-import time
 import os
 from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-load_dotenv()
-first_name = os.getenv('FIRST_NAME')
-last_name = os.getenv('LAST_NAME')
-bruin_email = os.getenv('BRUIN_EMAIL')
-bruin_id = os.getenv('BRUIN_ID')
 
 #remember that bruin email needs g.ucla.edu
 def autofill_library_reservation(first_name,last_name,bruin_email,bruin_id):
@@ -64,6 +58,14 @@ def autofill_library_reservation(first_name,last_name,bruin_email,bruin_id):
 
 if __name__ == "__main__":
     if len(sys.argv) == 1:
+        load_dotenv()
+        first_name = os.getenv('FIRST_NAME')
+        last_name = os.getenv('LAST_NAME')
+        bruin_email = os.getenv('BRUIN_EMAIL')
+        bruin_id = os.getenv('BRUIN_ID')    
+        if not first_name or not last_name or not bruin_email or not bruin_id:  
+            print('One of fields is not filled out in env file')
+            exit()      
         autofill_library_reservation(first_name, last_name, bruin_email, bruin_id)
         exit()
     if len(sys.argv) != 5:
