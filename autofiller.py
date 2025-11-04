@@ -1,7 +1,9 @@
 import sys
-import time
+import os
+from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+
 
 #remember that bruin email needs g.ucla.edu
 def autofill_library_reservation(first_name,last_name,bruin_email,bruin_id):
@@ -20,6 +22,11 @@ def autofill_library_reservation(first_name,last_name,bruin_email,bruin_id):
     elements = driver.find_elements(By.XPATH, "//div[@class='s-lc-eq-period s-lc-eq-period-available'][contains(@data-period-display,'8:00am')]")
     if len(elements) == 0:
         elements = driver.find_elements(By.XPATH, "//div[@class='s-lc-eq-period s-lc-eq-period-available'][contains(@data-period-display,'12:30pm')]")
+    if len(elements) == 0:
+        elements = driver.find_elements(By.XPATH, "//div[@class='s-lc-eq-period s-lc-eq-period-available'][contains(@data-period-display,'4:30pm')]")
+    if len(elements) == 0:
+        print("All time slots filled")
+        exit()
     element = elements[0]
     element.click()
     driver.implicitly_wait(0.5)
@@ -51,10 +58,19 @@ def autofill_library_reservation(first_name,last_name,bruin_email,bruin_id):
 
 if __name__ == "__main__":
     if len(sys.argv) == 1:
-        autofill_library_reservation('Curtis','Chen','curtischen0406@g.ucla.edu','705699396')
+        load_dotenv()
+        first_name = os.getenv('FIRST_NAME')
+        last_name = os.getenv('LAST_NAME')
+        bruin_email = os.getenv('BRUIN_EMAIL')
+        bruin_id = os.getenv('BRUIN_ID')    
+        if not first_name or not last_name or not bruin_email or not bruin_id:  
+            print('One of fields is not filled out in env file')
+            exit()      
+        autofill_library_reservation(first_name, last_name, bruin_email, bruin_id)
         exit()
     if len(sys.argv) != 5:
         print("Usage: python3 scrape.py <first_name> <last_name> <bruin_email> <bruin_id>")
         sys.exit(1)
     _, first_name, last_name, bruin_email, bruin_id = sys.argv
     autofill_library_reservation(first_name, last_name, bruin_email, bruin_id)
+
