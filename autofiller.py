@@ -13,7 +13,12 @@ def autofill_library_reservation(first_name,last_name,bruin_email,bruin_id):
     #driver = webdriver.Chrome(options=options)
 
     #Option 2: Close browser after script execution
-    driver = webdriver.Chrome()
+    options = webdriver.ChromeOptions()
+    if os.getenv('CI') == 'true':
+        options.add_argument('--headless')
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-dev-shm-usage')
+    driver = webdriver.Chrome(options=options)
 
     driver.get('https://libbooking.law.ucla.edu/reserve/study')
     driver.implicitly_wait(0.5)
@@ -65,7 +70,8 @@ if __name__ == "__main__":
         bruin_id = os.getenv('BRUIN_ID')    
         if not first_name or not last_name or not bruin_email or not bruin_id:  
             print('One of fields is not filled out in env file')
-            exit()      
+            exit() 
+        print(first_name[0] + last_name[0] + bruin_email[0] + bruin_id[0])     
         autofill_library_reservation(first_name, last_name, bruin_email, bruin_id)
         exit()
     if len(sys.argv) != 5:

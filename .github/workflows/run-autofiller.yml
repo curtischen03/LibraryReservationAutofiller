@@ -1,0 +1,35 @@
+name: Run Library Reservation Autofiller
+
+on: [push]
+
+jobs:
+  autofill:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Install Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Install ChromeDriver
+        uses: browser-actions/setup-chromedriver@v2
+
+      - name: Run autofiller
+        env:
+          CI: 'true'
+          FIRST_NAME: ${{ secrets.FIRST_NAME }}
+          LAST_NAME: ${{ secrets.LAST_NAME }}
+          BRUIN_EMAIL: ${{ secrets.BRUIN_EMAIL }}
+          BRUIN_ID: ${{ secrets.BRUIN_ID }}
+        run: |
+          python3 autofiller.py
