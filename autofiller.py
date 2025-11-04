@@ -18,6 +18,7 @@ def autofill_library_reservation(first_name,last_name,bruin_email,bruin_id):
         options.add_argument('--headless')
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-dev-shm-usage')
+        options.binary_location = '/usr/bin/chromium-browser'
     driver = webdriver.Chrome(options=options)
 
     driver.get('https://libbooking.law.ucla.edu/reserve/study')
