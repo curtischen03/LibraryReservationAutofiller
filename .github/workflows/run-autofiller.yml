@@ -2,7 +2,7 @@ name: Run Library Reservation Autofiller
 
 on: 
   schedule: 
-    - cron: "0 0 * * 1-5"
+    - cron: "0 8 * * 1-5"
 
 jobs:
   autofill:
