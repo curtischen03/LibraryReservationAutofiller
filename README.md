@@ -12,8 +12,9 @@ cd LibraryReservationAutofiller
 ## Setup
 
 ```bash
-pip install selenium
-pip install dotenv
+python -m venv venv
+source venv/Scripts/activate
+pip install -r requirements.txt
 ```
 
 Make sure you have **Chrome** and a compatible **ChromeDriver** installed on your system.
@@ -48,10 +49,10 @@ Run:
 ```bash
 python3 autofiller.py
 ```
+
 ### Option 3:
 
 Currently, Github Actions is enabled, so if you put your first name, last name, bruin email, and bruin id into Github secrets, you are able to schedule every weekday at 12:00AM.
-
 
 ---
 
